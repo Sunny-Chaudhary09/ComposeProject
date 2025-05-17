@@ -1,5 +1,6 @@
-package com.example.composeproject.Signup
+package com.example.composeproject.Login
 
+import android.R
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -25,16 +26,16 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import android.util.Patterns
 import androidx.compose.ui.platform.LocalContext
-import com.example.composeproject.Login.LoginActivity
+import com.example.composeproject.Signup.SignUpScreenUI
 import kotlin.jvm.java
 
 @Composable
-fun SignUpScreenUI(
+fun LoginScreenUi(
      context: Context = LocalContext.current,
     onBackClick: () -> Unit = {},
     onSignInClick: () -> Unit = {
-        val intent = Intent(context, LoginActivity::class.java)
-        context.startActivity(intent)
+                       context.startActivity(Intent(context, LoginActivity::class.java))
+                       (context as? Activity)?.finish()
                    }
 ) {
     var fullName by remember { mutableStateOf("") }
@@ -112,7 +113,7 @@ fun SignUpScreenUI(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "By signing up, you agree to Edflake terms of service and privacy policy.",
+            text = "By signing up, you agree to Edifake terms of service and privacy policy.",
             fontSize = 12.sp,
             color = Color.Gray
         )
@@ -183,7 +184,7 @@ fun SignUpScreenUI(
         ) {
             IconButton(onClick = { }) {
                 Icon(
-                    painter = painterResource(id = android.R.drawable.ic_menu_camera),
+                    painter = painterResource(id = R.drawable.ic_menu_camera),
                     contentDescription = null,
                     tint = Color.Black,
                     modifier = Modifier.size(40.dp)
@@ -191,7 +192,7 @@ fun SignUpScreenUI(
             }
             IconButton(onClick = { }) {
                 Icon(
-                    painter = painterResource(id = android.R.drawable.ic_menu_search),
+                    painter = painterResource(id = R.drawable.ic_menu_search),
                     contentDescription = null,
                     tint = Color.Black,
                     modifier = Modifier.size(40.dp)
@@ -211,7 +212,7 @@ fun SignUpScreenUI(
                 color = Color(0xFFFFA500),
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.clickable {
-                    onSignInClick()
+                    onSignInClick()   // ✅ call the lambda
                 }
             )
         }
