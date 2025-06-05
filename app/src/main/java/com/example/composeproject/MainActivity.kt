@@ -38,10 +38,18 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     ComposeProjectTheme {
         Greeting("Android")
+    }
+}
+
+@Preview(showBackground = true,showSystemUi = true)
+@Composable
+fun GreetingPreview1() {
+    ComposeProjectTheme {
+        Greeting("mgmmggmglgl")
     }
 }
