@@ -1,7 +1,6 @@
 package com.example.composeproject.Dashboard
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -23,7 +22,7 @@ import com.example.composeproject.screens.SettingsScreen
 import kotlinx.coroutines.launch
 
 @Composable
-fun DashboardUI() {
+fun DashboardUI(modifier: Modifier= Modifier) {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -31,11 +30,11 @@ fun DashboardUI() {
     val drawerItems = listOf("home", "profile", "settings")
 
     ModalNavigationDrawer(
+        modifier = modifier,
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-                Text("Menu", modifier = Modifier.padding(16.dp))
-                Divider()
+                Text("Menu", modifier = Modifier.padding(0.dp))
                 drawerItems.forEach { item ->
                     NavigationDrawerItem(
                         label = { Text(item.replaceFirstChar { it.uppercase() }) },
@@ -56,14 +55,18 @@ fun DashboardUI() {
             }
         }
     ) {
-        Scaffold { padding ->
+        Scaffold() { padding ->
             NavHost(
                 navController = navController,
                 startDestination = "home",
                 modifier = Modifier.padding(padding)
             ) {
                 composable("home") {
-                    HomeScreen(drawerState, scope)
+                    HomeScreen(){
+                        scope.launch {
+                            drawerState.open()
+                        }
+                    }
                 }
                 composable("profile") {
                     ProfileScreen(drawerState, scope)
